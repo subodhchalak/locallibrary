@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    {% if genre %}
+        <h1>Genre: {{ genre.name }}</h1>
+        <br>
+
+            {% if user.is_staff %}
+                {% if perms.catalogApp.can_mark_returned %}
+                    <p><a href="{% url 'book-create' %}"><strong>Add Book Titles</strong></a></p>
+                    <p><a href="{% url 'genre-update' genre.id %}"><strong>Update</strong></a></p>
+                    <p><a href="{% url 'genre-delete' genre.id %}"><strong>Delete</strong></a></p>
+                {% endif %}
+            {% endif %}
+                
+
+    {% endif %}
+
+
+
+
+
+
+{% if genre.book_set.all %}
+<table class="table  table-hover  table-bordered mt-3" border="2">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col"><center>Book ID</center></th>
+            <th scope="col"><center>Title</center></th>
+            <th scope="col"><center>Author</center></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for book in genre.book_set.all %}
+            <tr>
+                <td><center>{{ book.id }}</center></td>
+                <td><center><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></center></td>
+                <td><center><i><a href="{% url 'author-detail' book.author.id %}">{{ book.author }}</a></i></center></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+
+{% else %}
+    <p>Sorry, currently no books are unavailable under this genre!</p>
+
+{% endif %}
+
+
+{% endblock content %}

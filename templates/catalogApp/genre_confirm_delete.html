@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <h1>Delete Genre</h1>
+
+    <p>Do you really want to delete this genre?: {{ genre }}</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+        <a href="{% url 'genres' %}">Cancel</a>
+    </form>
+
+
+{% endblock content %}

@@ -1,0 +1,87 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+    {% if book %}
+    <h1>Title: {{ book.title }}</h1>
+
+        <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.id %}">{{ book.author }}</a></p>
+        <p><strong>Summary:</strong> {{ book.summary }}</p>
+        <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+        <p><strong>Language: </strong><a href="{% url 'language-detail' book.language.id %}">{{ book.language }}</a></a></p>
+
+        {% for gr in book.genre.all %}
+            <p><strong>Genre:  </strong><a href="{% url 'genre-detail' gr.id %}">{{ gr.name }}</a>
+        {% endfor %}
+
+        {% if user.is_staff %}
+            {% if perms.catalogApp.can_mark_returned %}
+                <p><a href="{% url 'book-update' book.id %}"><strong>Update</strong></a></p>
+                <p><a href="{% url 'book-delete' book.id %}"><strong>Delete</strong></a></p>
+            {% endif %}
+        {% endif %}
+
+
+
+
+
+    <table class="table  table-hover  table-bordered mt-3" border="2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"><center>Book Copy ID</center></th>
+                <th scope="col"><center>Imprint</center></th>
+                <th scope="col"><center>Due Date</center></th>
+                <th scope="col"><center>Availabilty</center></th>
+                <th scope="col"><center>Action</center></th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for copy in book.bookinstance_set.all %}
+            <tr>
+                <td><center>{{ copy.id }}</center></td>
+                <td><center>{{ copy.imprint }}</center></td>
+                <td><center>{{ copy.due_back }}</center></td>
+
+                {% if copy.status == 'a' %}
+                    <td class="text-success"><center> Available</center></td>
+                {% elif copy.status == 'm' %} 
+                    <td><center>Under Maintainance</center></td>
+                {% elif copy.status == 'o' %}
+                    <td class="text-danger"><center>Rented</center></td>
+                {% elif copy.status == 'r' %}
+                    <td class="text-warning"><center>Reserved</center></td>
+                {% else %}
+                    <td><center>Details Are Not Available</center></td>
+                {% endif %}
+
+                <td>
+                    {% if user.is_staff %}
+                        {% if perms.catalogApp.can_mark_returned %}
+                            <center><a href="{% url 'renew-book-librarian' copy.id %}">Renew</a>  |
+                            <a href="{% url 'bookinstance-update' copy.id %}">Update</a></center>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+    {% else %}
+        <p>Sorry, no books are available.</p>
+
+    {% endif %}
+
+
+{% endblock content %}
+

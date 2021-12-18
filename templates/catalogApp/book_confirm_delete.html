@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <h1>Delete Book</h1>
+
+    <p>Do you really want to delete this book?: {{ book }}</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+        <a href="{% url 'books' %}">Cancel</a>
+    </form>
+
+
+{% endblock content %}

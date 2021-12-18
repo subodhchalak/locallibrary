@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <form action="" method="post"  class="mt-2 mb-5 col-6 align-middle">
+    <h1 align="center">Add New Genre</h1>
+    <hr>
+
+    {% csrf_token %}
+
+    <table>
+        {{ form | crispy}}
+    </table>
+
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <!-- <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
+
+  <p>Don't have a account? <a href="{% url 'register-user' %}" >Register</a></p>
+
+{% endblock %}

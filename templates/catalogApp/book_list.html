@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+
+<h1> Book List </h1>
+
+
+
+{% if book_list %}
+
+    <table class="table  table-hover  table-bordered mt-3" border="2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"><center>ID</center></th>
+                <th scope="col"><center>Title</center></th>
+                <th scope="col"><center>Author</center></th>
+                <th scope="col"><center>Genre</center></th>
+                <th scope="col"><center>Language</center></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for book in book_list %}
+                <tr>
+                    <td><center>{{ book.id }}</center></td>
+                    <td><center><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></center></td>
+                    <td><center><i><a href="{% url 'author-detail' book.author.id %}">{{ book.author }}</a></i></center></td>
+                    <td>
+                        {% for gr in book.genre.all %}
+                            <center><a href="{% url 'genre-detail' gr.id %}">{{ gr.name }}</a></center>
+                        {% endfor %}
+                    </td>
+                    <td><center><a href="{% url 'language-detail' book.language.id %}">{{ book.language }}</a></center></td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+{% endif %}
+
+{% endblock content %}
+
+
+
+
+

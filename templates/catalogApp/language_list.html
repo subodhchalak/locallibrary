@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+
+    <h1> Language List </h1>
+    <br>
+
+    {% if language_list %}
+
+        <ol>
+            {% for language in language_list %}
+                <li><a href="{% url 'language-detail' language.id %}">{{ language.name }}</a></li>
+            {% endfor %}
+        </ol>
+
+    {% else %}
+        <h3>Sorry, currently there are no language available!</h3>
+
+    {% endif %}
+
+{% endblock content %}

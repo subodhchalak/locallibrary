@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <form action="" method="post"  class="mt-2 mb-5 col-6 align-middle">
+        <h1 align="center">Add New Author</h1>
+        <hr>
+
+        {% csrf_token %}
+
+        <table>
+            {{ form | crispy}}
+        </table>
+
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <p>Already have a account? <a href="{% url 'login' %}" >Login</a></p>
+
+
+{% endblock content %}
+

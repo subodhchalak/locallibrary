@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+
+    <h1> Author List </h1>
+
+    {% if author_list %}
+
+    <table class="table  table-hover  table-bordered mt-3 mb-5" border="2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"><center>Author ID</center></th>
+                <th scope="col"><center>Author </center></th>
+                <th scope="col"><center>Books</center></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for author in author_list %}
+            <tr>
+                <td><center>{{ author.id }}</center></td>
+                <td><center><i><a href="{% url 'author-detail' author.id %}">{{ author }}</a></i></center></td>
+                <td><center></center>
+                {% for book in author.book_set.all %}
+                    <ul>
+                        <li><a href="{% url 'book-detail' book.id %}">{{ book }}</li>
+                    </ul>
+                {% endfor %}
+            </center></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    {% else %}
+        <h3>Sorry, currently there are no authors available!</h3>
+
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+
+    <h1> Genre List </h1>
+    <br>
+
+    {% if genre_list %}
+
+        <ol>
+            {% for genre in genre_list %}
+                <li><a href="{% url 'genre-detail' genre.id %}">{{genre.name}}</a></li>
+            {% endfor %}
+        </ol>
+
+    {% else %}
+        <h3>Sorry, currently there are no genres available!</h3>
+
+    {% endif %}
+
+{% endblock content %}

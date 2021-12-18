@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+    {% if author %}
+    <h1>Author Detail</h1>
+        <br>
+
+        <p><strong>First Name:</strong> <a href="">{{ author.first_name }}</a></p>
+        <p><strong>Last Name:</strong> {{ author.last_name }}</p>
+        <p><strong>Born:</strong> {{ author.date_of_birth }}</p>
+        <p><strong>Books:</strong> 
+        
+        {% if user.is_staff %}
+            {% if perms.catalogApp.can_mark_returned %}
+                <p><a href="{% url 'author-update' author.id %}"><strong>Update</strong></a></p>
+                <p><a href="{% url 'author-delete' author.id %}"><strong>Delete</strong></a></p>
+            {% endif %}
+        {% endif %}
+
+        <br>
+        {% for book in author.book_set.all %}
+            <ul>
+                <li><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></li>
+            </ul>
+        {% endfor %}
+
+
+        <table class="table  table-hover  table-bordered mt-3" border="2">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"><center>Book ID</center></th>
+                    <th scope="col"><center>Title</center></th>
+                    <th scope="col"><center>Genre</center></th>
+                    <th scope="col"><center>Langauge</center></th>
+    
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for book in author.book_set.all %}
+                <tr>
+                    <td><center>{{ book.id }}</center></td>
+                    <td><center><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></center></td>
+
+                    <td>
+                        {% for gr in book.genre.all %}
+                            <center><a href="{% url 'genre-detail' gr.id %}">{{ gr.name }}</a></center>
+                        {% endfor %}
+                    </td>
+    
+                    <td><center><a href="{% url 'language-detail' book.language.id %}">{{book.language}}</a></center></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    
+        {% else %}
+            <p>Sorry, no books are available.</p>
+
+
+    {% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <h1>Borrowed Books </h1>
+
+    {% if bookinstance_list %}
+        
+    <table class="table  table-hover  table-bordered mt-3 mb-5" border="2">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"><center>BookInstance ID</center></th>
+                <th scope="col"><center>Title </center></th>
+                <th scope="col"><center>Author</center></th>
+                <th scope="col"><center>Borrower</center></th>
+                <th scope="col"><center>Due Date</center></th>
+
+                {% if user.is_staff %}
+                    {% if perms.catalogApp.can_mark_returned %}
+                        <th scope="col"><center>Action</center></th>
+                    {% endif %}
+                {% endif %}
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for bookinsta in bookinstance_list %}
+                <tr>
+                    <td><center>{{ bookinsta.id }}</center></td>
+                    <td><a href="{% url 'book-detail' bookinsta.book.pk %}">{{ bookinsta.book.title }}</a></td>
+                    <td><a href="{% url 'book-detail' bookinsta.book.pk %}">{{ bookinsta.book.author }}</a></td>
+                    <td>{{ bookinsta.borrower }}</td>
+                    <td>{{ bookinsta.due_back }}</td>
+
+                    {% if user.is_staff %}
+                        {% if perms.catalogApp.can_mark_returned %}
+                            <td>
+                                <center><a href="{% url 'renew-book-librarian' bookinsta.id %}">Renew</a> / 
+                                <a href="{% url 'bookinstance-update' bookinsta.id %}">Update</a></center>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}
+    <h1>Local Library</h1>
+{% endblock title %}
+
+{% block content %}
+
+    {% if language %}
+        <h1>Language: {{ language.name }}</h1>
+        <br>
+        
+            {% if user.is_staff %}
+                {% if perms.catalogApp.can_mark_returned %}
+                    <p><a href="{% url 'language-create' %}"><strong>Add Book Titles</strong></a></p>
+                    <p><a href="{% url 'language-update' language.id %}"><strong>Update</strong></a></p>
+                    <p><a href="{% url 'language-delete' language.id %}"><strong>Delete</strong></a></p>
+                {% endif %}
+            {% endif %}
+                
+                
+        {% if language.book_set.all %}
+            <table class="table  table-hover  table-bordered mt-3 mb-5" border="2">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col"><center>Book ID</center></th>
+                        <th scope="col"><center>Title</center></th>
+                        <th scope="col"><center>Author</center></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for book in language.book_set.all %}
+
+                        <tr>
+                            <td><center>{{ book.id }}</center></td>
+                            <td><center><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></center></td>
+                            <td><center><i><a href="{% url 'author-detail' book.author.id %}">{{ book.author }}</a></i></center></td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+
+        {% else %}
+            <h3>Sorry, currently no books are availble under this language!</h3>
+        {% endif %}
+
+    {% endif %}
+
+
+{% endblock content %}

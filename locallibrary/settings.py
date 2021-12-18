@@ -164,7 +164,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 
 # Heroku: Update database configuration from $DATABASE_URL.

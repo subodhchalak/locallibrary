@@ -38,6 +38,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-)=z0co5elp0c3b7dgv0wt
 # DEBUG = True
 
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEGUB = False
+
 
 ALLOWED_HOSTS = ['127.0.0.1:8000', 'newlocallibrary.herokuapp.com']
 

@@ -156,7 +156,7 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalogApp.can_mark_returned'
     # initial = {'date_of_death': '25/08/2025'}
     template_name = 'catalogApp/author_form.html'
-    success_url = reverse_lazy('books')
+    success_url = reverse_lazy('authors')
     
     
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):

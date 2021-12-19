@@ -317,7 +317,7 @@ class BookInstanceDelete(PermissionRequiredMixin, DeleteView):
     model = BookInstance
     permission_required = 'catalogApp.can_mark_returned'
     template_name = 'catalogApp/bookinstance_confirm_delete.html'
-    success_url = reverse_lazy('borrowed')
+    success_url = reverse_lazy('books')
     
     
     

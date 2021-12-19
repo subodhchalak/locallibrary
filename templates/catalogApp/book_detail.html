@@ -24,6 +24,8 @@
             {% if perms.catalogApp.can_mark_returned %}
                 <p><a href="{% url 'book-update' book.id %}"><strong>Update</strong></a></p>
                 <p><a href="{% url 'book-delete' book.id %}"><strong>Delete</strong></a></p>
+                <p><a href="{% url 'bookinstance-create' %}"><strong>Add New Book Instance</strong></a></p>
+                
             {% endif %}
         {% endif %}
 

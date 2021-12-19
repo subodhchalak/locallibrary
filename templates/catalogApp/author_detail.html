@@ -21,15 +21,17 @@
             {% if perms.catalogApp.can_mark_returned %}
                 <p><a href="{% url 'author-update' author.id %}"><strong>Update</strong></a></p>
                 <p><a href="{% url 'author-delete' author.id %}"><strong>Delete</strong></a></p>
+                <p><a href="{% url 'book-create' %}"><strong>Add new book</strong></a></p>
+
             {% endif %}
         {% endif %}
 
         <br>
-        {% for book in author.book_set.all %}
+        <!-- {% for book in author.book_set.all %}
             <ul>
                 <li><a href="{% url 'book-detail' book.id %}">{{ book.title }}</a></li>
             </ul>
-        {% endfor %}
+        {% endfor %} -->
 
 
         <table class="table  table-hover  table-bordered mt-3" border="2">

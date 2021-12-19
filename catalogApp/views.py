@@ -339,3 +339,14 @@ def register_userView(request):
     context = {'form':form }
     
     return render(request, template_name, context)
+
+
+
+
+def error_404(request, exception):
+        data = {}
+        return render(request,'catalogApp/error_404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'catalogApp/error_500.html', data)

@@ -34,17 +34,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-)=z0co5elp0c3b7dgv0wtrtys(4!w!(l4!=0$il)n7yeg+&y@@')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-DEGUB = False
+
+# DEGUB = False
 
 # export DJANGO_DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'newlocallibrary.herokuapp.com']
+# ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = ['127.0.0.1:8000', 'newlocallibrary.herokuapp.com']
 
 # Application definition
 
@@ -64,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

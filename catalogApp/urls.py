@@ -1,6 +1,10 @@
 from django.urls import path
 from catalogApp.views import *
 
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.handlers.wsgi import WSGIRequest
+
 urlpatterns = [
     path('', indexView, name='index'),
     path('books/', BookListView.as_view(), name='books'),
@@ -44,3 +48,6 @@ urlpatterns = [
     path('register/', register_userView, name='register-user'),
     
 ]
+
+
+
